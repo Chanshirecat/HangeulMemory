@@ -46,7 +46,7 @@ export default {
 
 <style>
 .card {
-  border-radius: 100px;
+  border-radius: 10px;
   position: relative;
 }
 

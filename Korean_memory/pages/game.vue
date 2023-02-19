@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="app">
 
 
 
@@ -74,7 +74,7 @@ export default {
             })
         }
 
-        const cardItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+        const cardItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
 
         cardItems.forEach(item => {
             cardList.value.push({
@@ -154,19 +154,23 @@ export default {
 </script>
 
 <style>
-#app {}
+#app {
+    background-image: url(./public/images/background.jpg);
+    background-size: cover;
+    text-align: center;
+}
 
 .card {
-    border: 40px solid #0F64CD;
-    border-radius: 100px;
+    border: 10px solid #0F64CD;
+    border-radius: 10px;
 }
 
 .game-board {
     display: grid;
-    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px;
-    grid-template-rows: 50px 50px 50px 50px 50px;
-    grid-column-gap: 55px;
-    grid-row-gap: 55px;
+    grid-template-columns: repeat(9, 70px);
+    grid-template-rows: repeat(6, 70px);
+    grid-column-gap: 50px;
+    grid-row-gap: 50px;
     justify-content: center;
 }
 </style>
