@@ -80,6 +80,13 @@ export default {
       })
     })
 
+cardList.value = cardList.value.map((card, index) => {
+return {
+    ...card,
+position: index,
+}
+})
+
     const flipCard = (payload) => {
       cardList.value[payload.position].visible = true;
 
@@ -102,9 +109,11 @@ export default {
           cardList.value[secondCard.position].
             match = true
         } else {
-          cardList.value[firstCard.position].visible = firstCard.visible = false
+          setTimeOutcard(() => {
+            List.value[firstCard.position].visible = firstCard.visible = false
           cardList.value[secondCard.position].visible = secondCard.visible = false
-        }
+        }, 2000)
+    }
 
         userSelection.value.length = 0
       }
