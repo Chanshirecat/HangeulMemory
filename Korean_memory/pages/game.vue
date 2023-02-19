@@ -1,23 +1,24 @@
 <template>
-    <div>
-      <h1>Hangeul Memory</h1>
-      <section class="game-board">
-        <Card
-        v-for="(card, index) in cardList" 
-        :key="`card${index}`"
-        :match="card.match"
-        :value="card.value"
-        :visible="card.visible"
-        :position="card.position"
-        @select-card="flipCard"
-        />
-      </section>
-      <h2>{{ status }}</h2>
-    </div>
-  </template>
+  <div>
 
-  <script>
-  import { ref, watch, computed } from 'vue'
+    <h1>Hangeul Memory</h1>
+
+    <section class="game-board">
+
+      <Card v-for="(card, index) in cardList" :key="`card${index}`" :match="card.match" :value="card.value"
+        :visible="card.visible" :position="card.position" @select-card="flipCard" />
+
+    </section>
+
+    <h2>{{ status }}</h2>
+    <button @click="shuffleCards">Shuffle Cards</button>
+
+  </div>
+</template>
+
+<script>
+import { computed, ref, watch, } from 'vue'
+import _ from 'lodash'
 import Card from '~~/components/Card.vue';
 
 export default {
@@ -31,18 +32,23 @@ export default {
 
 
     const status = computed(() => {
-if (remainingPairs.value === 0) {
-  return 'You win!'
-} else {
-  return `Remaining Pairs: ${remainingPairs.value}`
+      if (remainingPairs.value === 0) {
+        return 'You win!'
+      } else {
+        return `Remaining Pairs: ${remainingPairs.value}`
+      }
     })
 
     const remainingPairs = computed(() => {
       const remainingCards = cardList.value.filter(
         card => card.match === false).length
-    
-        return remainingCards / 2;
+
+      return remainingCards / 2;
     })
+
+    const shuffleCards = () => {
+        cardList.value = _.shuffle(cardList.value)
+    }
 
     for (let i = 0; i < 40; i++) {
       cardList.value.push({
@@ -55,55 +61,51 @@ if (remainingPairs.value === 0) {
 
     const flipCard = (payload) => {
       cardList.value[payload.position].visible = true;
-    
-    if (userSelection.value[0]) {
-      userSelection.value[1] = payload
-    } else {
-      userSelection.value[0] = payload
-    }
-  }
 
-  watch(userSelection, (currentValue) => {
-    if (currentValue.length === 2) {
-      const firstCard = currentValue[0]
-      const secondCard = currentValue[1]
-
-      if (firstCard.faceValue === secondCard.faceValue) {
-        status.value = "Match!"
-
-        cardList.value[firstCard.position].
-        match = true
-        cardList.value[secondCard.position].
-        match = true
-
+      if (userSelection.value[0]) {
+        userSelection.value[1] = payload
       } else {
-        status.value = "Mismatch!"
-
-      cardList.value[firstCard.position].visible = firstCard.visible
-      = false
-      cardList.value[secondCard.position].visible = secondCard.visible
-      = false
+        userSelection.value[0] = payload
       }
+    }
 
-      userSelection.value.length = 0
-    } 
-  }, 
-  {deep: true }
-  )
+    watch(userSelection, (currentValue) => {
+      if (currentValue.length === 2) {
+        const firstCard = currentValue[0]
+        const secondCard = currentValue[1]
+
+        if (firstCard.faceValue === secondCard.faceValue) {
+          status.value = "Match!"
+
+          cardList.value[firstCard.position].
+            match = true
+          cardList.value[secondCard.position].
+            match = true
+
+        } else {
+          status.value = "Mismatch!"
+
+          cardList.value[firstCard.position].visible = firstCard.visible = false
+          cardList.value[secondCard.position].visible = secondCard.visible = false
+        }
+
+        userSelection.value.length = 0
+      }
+    }, { deep: true })
 
     return {
       cardList,
       flipCard,
       userSelection,
       status,
+      shuffleCards,
     }
   }
 }
 </script>
 
 <style>
-#app {
-}
+#app {}
 
 .card {
   border: 40px solid #0F64CD;
