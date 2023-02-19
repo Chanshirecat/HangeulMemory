@@ -11,8 +11,7 @@
     </section>
 
     <h2>{{ status }}</h2>
-    <button @click="shuffleCards">Shuffle Cards</button>
-
+    <button @click="restartGame">Restart the Game</button>
   </div>
 </template>
 
@@ -50,6 +49,19 @@ export default {
         cardList.value = _.shuffle(cardList.value)
     }
 
+    const restartGame = () => {
+        shuffleCards()
+
+        cardList.value = cardList.value.map((card, index) => {
+            return {
+                ...card,
+                match: false,
+                position: index,
+                visible: false,
+            }
+        })
+    }
+
     for (let i = 0; i < 40; i++) {
       cardList.value.push({
         value: i,
@@ -75,16 +87,12 @@ export default {
         const secondCard = currentValue[1]
 
         if (firstCard.faceValue === secondCard.faceValue) {
-          status.value = "Match!"
 
           cardList.value[firstCard.position].
             match = true
           cardList.value[secondCard.position].
             match = true
-
         } else {
-          status.value = "Mismatch!"
-
           cardList.value[firstCard.position].visible = firstCard.visible = false
           cardList.value[secondCard.position].visible = secondCard.visible = false
         }
@@ -99,6 +107,7 @@ export default {
       userSelection,
       status,
       shuffleCards,
+      restartGame,
     }
   }
 }
