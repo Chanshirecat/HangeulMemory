@@ -22,8 +22,8 @@
 
         <h2>{{ status }}</h2>
 
-        <button @click="restartGame">Restart the Game</button>
-
+        <button @click="restartGame" class="button">Restart the Game</button>
+        <p>Nathalie Klinger | cc211040</p>
     </div>
 </template>
 
@@ -74,7 +74,7 @@ export default {
             })
         }
 
-        const cardItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
+        const cardItems = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27']
 
         cardItems.forEach(item => {
             cardList.value.push({
@@ -126,15 +126,15 @@ export default {
 
                 if (firstCard.faceValue === secondCard.faceValue) {
 
-                    cardList.value[firstCard.position].
-                        match = true
-                    cardList.value[secondCard.position].
-                        match = true
+                    cardList.value[firstCard.position]
+                        matched = true
+                    cardList.value[secondCard.position]
+                        matched = true
                 } else {
                     setTimeOutcard(() => {
                         List.value[firstCard.position].visible = firstCard.visible = false
                         cardList.value[secondCard.position].visible = secondCard.visible = false
-                    }, 2000)
+                    }, 1000)
                 }
 
                 userSelection.value.length = 0
@@ -154,24 +154,37 @@ export default {
 </script>
 
 <style>
+ @import url('https://fonts.googleapis.com/css2?family=Mynerve&display=swap');
+
 #app {
     background-image: url(./public/images/background.jpg);
     background-size: cover;
     text-align: center;
+    font-family: 'Mynerve', cursive;
+    
 }
 
-.card {
-    border: 10px solid #0F64CD;
-    border-radius: 10px;
-}
 
 .game-board {
     display: grid;
-    grid-template-columns: repeat(9, 70px);
-    grid-template-rows: repeat(6, 70px);
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(6, 50px);
     grid-column-gap: 50px;
     grid-row-gap: 50px;
     justify-content: center;
+}
+
+.button {
+    border-radius: 10px;
+    color: white;
+    padding: 1rem;
+    background-color: #CD2E3A;
+    font-family: 'Mynerve', cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+
 }
 </style>
   
