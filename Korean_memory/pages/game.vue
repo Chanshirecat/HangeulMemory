@@ -1,24 +1,19 @@
 <template>
     <div id="app">
-
-
-
         <h1>Hangeul Memory</h1>
 
-
-
         <section class="game-board">
-
-
-
-            <Card v-for="(card, index) in cardList" :key="`card${index}`" :match="card.match" :value="card.value"
-                :visible="card.visible" :position="card.position" @select-card="flipCard" />
-
-
+            <Card 
+            v-for="(card, index) in cardList" 
+            :key="`card${index}`" 
+            :match="card.match" 
+            :value="card.value"
+            :visible="card.visible"
+            :position="card.position"
+            @select-card="flipCard"
+            />
 
         </section>
-
-
 
         <h2>{{ status }}</h2>
 
