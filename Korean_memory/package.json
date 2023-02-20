@@ -8,6 +8,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "netlify-cli": "^12.13.2",
     "nuxt": "^3.1.1"
   },
   "overrides": {
